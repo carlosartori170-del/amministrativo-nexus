@@ -15,3 +15,5 @@ WITH CHECK(EXISTS(SELECT 1 FROM public."NexusProfili" p WHERE p."UserID"=(select
 DROP POLICY IF EXISTS nexus_tariffe_colli_rete_select_amministrazione ON public."TariffeColliRete";
 CREATE POLICY nexus_tariffe_colli_rete_select_amministrazione ON public."TariffeColliRete" FOR SELECT TO authenticated
 USING(EXISTS(SELECT 1 FROM public."NexusProfili" p WHERE p."UserID"=(select auth.uid()) AND p."Attivo" AND p."Ruolo"='amministrazione'));
+
+REVOKE TRUNCATE, REFERENCES, TRIGGER, MAINTAIN ON TABLE public."AmministrativoBozzeFatture" FROM authenticated;
